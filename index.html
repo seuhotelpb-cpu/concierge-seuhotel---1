@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171717">
+  <meta name="description" content="Concierge digital do SEU HOTEL em Patos/PB.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>SEU HOTEL | Concierge Digital</title>
+</head>
+<body>
+  <div class="page-loader" id="pageLoader" aria-hidden="true">
+    <div class="loader-logo">SH</div>
+    <div class="loader-bar"><span></span></div>
+  </div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio">
+        <img src="assets/icons/icon-192.png" alt="">
+        <span id="hotelName">SEU HOTEL</span>
+      </a>
+      <div class="header-actions">
+        <button class="icon-button" id="themeButton" type="button" aria-label="Alternar tema">◐</button>
+        <button class="icon-button install-button" id="installButton" type="button" aria-label="Instalar aplicativo" hidden>＋</button>
+        <button class="icon-button" id="shareButton" type="button" aria-label="Compartilhar">↗</button>
+        <a class="icon-button" href="admin/index.html" aria-label="Painel administrativo">⚙</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-inner">
+        <span class="eyebrow">Concierge Digital</span>
+        <h1 id="heroTitle">Seja muito bem-vindo(a)!</h1>
+        <p id="heroText"></p>
+        <div class="hero-buttons">
+          <a class="button button-primary" id="whatsappButton" target="_blank" rel="noopener">Falar com a recepção</a>
+          <a class="button button-light" href="#wifi">Ver Wi-Fi</a>
+        </div>
+        <div class="hero-badges">
+          <span>✓ Recepção 24 horas</span>
+          <span>✓ Localização central</span>
+          <span>✓ Atendimento pelo WhatsApp</span>
+        </div>
+        <div class="notice" id="hotelNotice" hidden></div>
+      </div>
+    </section>
+
+    <section class="quick-bar">
+      <div class="container quick-grid">
+        <div class="quick-card"><span>Check-in</span><strong id="checkin"></strong></div>
+        <div class="quick-card"><span>Check-out</span><strong id="checkout"></strong></div>
+        <div class="quick-card"><span>Recepção</span><strong id="reception"></strong></div>
+        <div class="quick-card"><span>Estacionamento</span><strong>Não disponível</strong></div>
+      </div>
+    </section>
+
+    <section class="section" id="wifi">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Conectividade</span>
+          <h2>Wi-Fi do hotel</h2>
+          <p>Copie os dados abaixo e conecte-se à nossa rede.</p>
+        </div>
+        <div class="wifi-card">
+          <div>
+            <div class="wifi-data">
+              <div class="wifi-field"><small>Rede</small><strong id="wifiName"></strong></div>
+              <div class="wifi-field"><small>Senha</small><strong id="wifiPassword"></strong></div>
+            </div>
+          </div>
+          <button class="button button-primary" id="copyWifiButton" type="button">Copiar Wi-Fi</button>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="section request-section" id="solicitacao">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Atendimento rápido</span>
+          <h2>Como podemos ajudar?</h2>
+          <p>Informe seu apartamento e escolha o serviço desejado.</p>
+        </div>
+        <div class="request-panel">
+          <div class="room-input-group">
+            <label for="roomNumber">Número do apartamento</label>
+            <input id="roomNumber" type="text" inputmode="numeric" placeholder="Ex.: 203" maxlength="8">
+          </div>
+          <div class="request-options" id="quickRequestOptions">
+            <button type="button" data-message="Gostaria de solicitar limpeza no apartamento."><span>🧹</span>Limpeza</button>
+            <button type="button" data-message="Gostaria de solicitar toalhas para o apartamento."><span>🛁</span>Toalhas</button>
+            <button type="button" data-message="Preciso de ajuda com o ar-condicionado do apartamento."><span>❄️</span>Ar-condicionado</button>
+            <button type="button" data-message="Gostaria de falar com a recepção."><span>🛎️</span>Recepção</button>
+          </div>
+          <p class="request-feedback" id="requestFeedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+<section class="section section-soft" id="servicos">
+      <div class="container">
+        <div class="section-heading"><span class="eyebrow">Atendimento</span><h2>Serviços para sua estadia</h2><p>Solicite diretamente pelo WhatsApp.</p></div>
+        <div class="info-grid" id="servicesGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="quartos">
+      <div class="container">
+        <div class="section-heading"><span class="eyebrow">Acomodações</span><h2>Nossos quartos</h2><p>Conheça as principais opções de acomodação.</p></div>
+        <div class="info-grid" id="roomsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="cafe">
+      <div class="container">
+        <div class="section-heading"><span class="eyebrow">Café da manhã</span><h2>Comece bem o seu dia</h2></div>
+        <div class="info-grid">
+          <article class="info-card"><span class="card-icon">☕</span><h3>Segunda a sexta</h3><p id="breakfastWeek"></p></article>
+          <article class="info-card"><span class="card-icon">🥐</span><h3>Finais de semana e feriados</h3><p id="breakfastWeekend"></p></article>
+          <article class="info-card"><span class="card-icon">ℹ️</span><h3>Orientação</h3><p>O espaço café fica disponível para reuniões após as 09h e depois da limpeza do local.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="academia">
+      <div class="container">
+        <div class="section-heading"><span class="eyebrow">Benefício exclusivo</span><h2>Academia parceira</h2><p>Cuide do seu bem-estar também durante a viagem.</p></div>
+        <div class="academy-card">
+          <div><h3 id="academyName"></h3><p id="academyText"></p></div>
+          <div class="academy-price"><div><small>Passe para hóspedes</small><strong id="academyPrice"></strong></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="galeria">
+      <div class="container">
+        <div class="section-heading"><span class="eyebrow">Conheça o hotel</span><h2>Galeria</h2></div>
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="regras">
+      <div class="container">
+        <div class="section-heading"><span class="eyebrow">Boa convivência</span><h2>Orientações importantes</h2></div>
+        <div class="info-grid" id="rulesGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="proximidades">
+      <div class="container">
+        <div class="section-heading"><span class="eyebrow">Explore Patos</span><h2>O que há por perto</h2></div>
+        <div class="info-grid" id="nearbyGrid"></div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="faq">
+      <div class="container">
+        <div class="section-heading"><span class="eyebrow">Informações úteis</span><h2>Perguntas frequentes</h2></div>
+        <div class="faq-list" id="faqList"></div>
+      </div>
+    </section>
+
+    
+    <section class="section section-dark rating-section" id="avaliacao">
+      <div class="container rating-layout">
+        <div>
+          <span class="eyebrow">Sua experiência</span>
+          <h2>Como está sendo sua hospedagem?</h2>
+          <p>Sua opinião ajuda nossa equipe a melhorar cada detalhe.</p>
+        </div>
+        <div class="rating-card">
+          <div class="rating-buttons" id="ratingButtons" aria-label="Avaliação de 1 a 5">
+            <button type="button" data-rating="1">★</button>
+            <button type="button" data-rating="2">★</button>
+            <button type="button" data-rating="3">★</button>
+            <button type="button" data-rating="4">★</button>
+            <button type="button" data-rating="5">★</button>
+          </div>
+          <p id="ratingMessage">Toque nas estrelas para avaliar.</p>
+          <a class="button button-primary" id="sendRatingButton" target="_blank" rel="noopener" hidden>Enviar avaliação</a>
+        </div>
+      </div>
+    </section>
+
+<section class="section" id="contato">
+      <div class="container">
+        <div class="contact-card">
+          <div><span class="eyebrow">SEU HOTEL</span><h2 id="hotelTagline"></h2><div class="contact-buttons"><a class="button button-primary" id="mapButton" target="_blank" rel="noopener">Abrir no mapa</a></div></div>
+          <div class="contact-list">
+            <div><strong>Endereço</strong><br><span id="hotelAddress"></span></div>
+            <div><strong>Telefone</strong><br><span id="hotelPhone"></span></div>
+            <div><strong>E-mail</strong><br><span id="hotelEmail"></span></div>
+            <div><strong>Instagram</strong><br><span id="hotelInstagram"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container">SEU HOTEL • Patos/PB</div></footer>
+
+  <nav class="bottom-nav" aria-label="Navegação principal">
+    <a href="#inicio"><span>⌂</span>Início</a>
+    <a href="#wifi"><span>⌁</span>Wi-Fi</a>
+    <a href="#servicos"><span>♢</span>Serviços</a>
+    <a href="#contato"><span>☏</span>Contato</a>
+  </nav>
+
+  <button class="floating-concierge" id="conciergeButton" type="button">
+    <span>🛎️</span><strong>Precisa de ajuda?</strong>
+  </button>
+
+  <div class="concierge-overlay" id="conciergeOverlay" hidden>
+    <div class="concierge-modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="conciergeClose" type="button">×</button>
+      <span class="eyebrow">Atendimento 24 horas</span>
+      <h2>Olá! Como podemos ajudar?</h2>
+      <p>Escolha uma opção para falar rapidamente com nossa recepção.</p>
+      <div class="concierge-actions">
+        <a data-concierge-message="Olá! Preciso falar com a recepção."><span>🛎️</span><strong>Recepção</strong></a>
+        <a data-concierge-message="Olá! Gostaria de solicitar limpeza no apartamento."><span>🧹</span><strong>Limpeza</strong></a>
+        <a data-concierge-message="Olá! Gostaria de solicitar toalhas."><span>🛁</span><strong>Toalhas</strong></a>
+        <a href="#wifi" id="conciergeWifi"><span>📶</span><strong>Ver Wi-Fi</strong></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

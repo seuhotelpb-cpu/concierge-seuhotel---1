@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#171717">
+  <link rel="icon" href="../assets/icons/icon-192.png">
+  <link rel="stylesheet" href="admin.css">
+  <title>Painel Administrativo | SEU HOTEL</title>
+</head>
+<body>
+  <section class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="login-brand"><img src="../assets/icons/icon-192.png" alt=""><div><span>SEU HOTEL</span><strong>Painel Administrativo</strong></div></div>
+      <div class="login-heading"><span class="eyebrow">Acesso restrito</span><h1>Gerencie o concierge</h1><p>Use sua senha administrativa para continuar.</p></div>
+      <form class="login-form" id="loginForm">
+        <label>Senha<div class="password-field"><input id="adminPassword" type="password" autocomplete="current-password" required><button id="togglePassword" type="button" aria-label="Mostrar senha">👁️</button></div></label>
+        <p class="form-error" id="loginError"></p>
+        <button class="primary-button full-button" type="submit">Entrar</button>
+      </form>
+      <div class="login-note"><span>ℹ️</span><p>A senha inicial é <strong>1234</strong>. Altere-a em Configurações.</p></div>
+    </div>
+  </section>
+
+  <div class="admin-app" id="adminApp" hidden>
+    <aside class="sidebar">
+      <div class="sidebar-brand"><img src="../assets/icons/icon-192.png" alt=""><div><strong>SEU HOTEL</strong><span>Concierge Digital</span></div></div>
+      <nav class="sidebar-navigation">
+        <button class="nav-item active" data-section="dashboard"><span>⌂</span>Dashboard</button>
+        <button class="nav-item" data-section="general"><span>◆</span>Hotel</button>
+        <button class="nav-item" data-section="hosting"><span>▣</span>Hospedagem</button>
+        <button class="nav-item" data-section="wifi"><span>⌁</span>Wi-Fi</button>
+        <button class="nav-item" data-section="breakfast"><span>☕</span>Café da manhã</button>
+        <button class="nav-item" data-section="services"><span>♢</span>Serviços</button>
+        <button class="nav-item" data-section="rooms"><span>▤</span>Quartos</button>
+        <button class="nav-item" data-section="rules"><span>☑</span>Regras</button>
+        <button class="nav-item" data-section="gallery"><span>▧</span>Galeria</button>
+        <button class="nav-item" data-section="academy"><span>⚡</span>Academia</button>
+        <button class="nav-item" data-section="nearby"><span>⌖</span>Proximidades</button>
+        <button class="nav-item" data-section="faq"><span>?</span>FAQ</button>
+        <button class="nav-item" data-section="settings"><span>⚙</span>Configurações</button>
+      </nav>
+      <div class="sidebar-footer"><a href="../index.html" target="_blank">↗ Ver concierge</a><button id="logoutButton" type="button">⇥ Sair</button></div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <div><button class="mobile-menu-button" id="mobileMenuButton" type="button">☰</button><div class="header-title"><span id="headerEyebrow">Painel administrativo</span><h1 id="headerTitle">Visão geral</h1></div></div>
+        <div class="header-actions"><span class="save-status" id="saveStatus"><span class="status-dot"></span> Alterações salvas</span><button class="secondary-button" id="previewButton" type="button">Visualizar</button><button class="primary-button" id="saveAllButton" type="button">Salvar alterações</button></div>
+      </header>
+
+      <div class="admin-content">
+        <section class="admin-section active" id="section-dashboard">
+          <div class="welcome-panel"><div><span class="eyebrow">SEU HOTEL</span><h2>Seu concierge digital em um só lugar.</h2><p>Edite informações, serviços, quartos, regras, galeria e orientações.</p></div><div class="welcome-symbol">SH</div></div>
+          <div class="stats-grid">
+            <div class="stat-card"><span>♢</span><div><small>Serviços</small><strong id="servicesCount">0</strong></div></div>
+            <div class="stat-card"><span>▤</span><div><small>Quartos</small><strong id="roomsCount">0</strong></div></div>
+            <div class="stat-card"><span>☑</span><div><small>Regras</small><strong id="rulesCount">0</strong></div></div>
+            <div class="stat-card"><span>▧</span><div><small>Fotos</small><strong id="galleryCount">0</strong></div></div>
+          </div>
+          <div class="dashboard-grid">
+            <div class="dashboard-card"><div class="card-heading"><h3>Edição rápida</h3></div><div class="quick-edit-grid">
+              <button data-open-section="wifi"><span>⌁</span><strong>Wi-Fi</strong><small>Atualizar rede e senha</small></button>
+              <button data-open-section="breakfast"><span>☕</span><strong>Café da manhã</strong><small>Editar horários</small></button>
+              <button data-open-section="services"><span>♢</span><strong>Serviços</strong><small>Gerenciar solicitações</small></button>
+              <button data-open-section="gallery"><span>▧</span><strong>Galeria</strong><small>Adicionar fotos</small></button>
+            </div></div>
+            <div class="dashboard-card"><div class="card-heading"><h3>Aviso atual</h3></div><div class="notice-preview" id="noticePreview">Nenhum aviso publicado.</div><button class="secondary-button full-button" data-open-section="general" type="button">Editar aviso</button></div>
+          </div>
+        </section>
+
+        <section class="admin-section" id="section-general">
+          <div class="section-introduction"><div><span class="eyebrow">Identidade</span><h2>Informações do hotel</h2><p>Textos exibidos na página principal.</p></div></div>
+          <div class="form-card">
+            <div class="form-grid two-columns">
+              <label>Nome do hotel<input id="hotelNameInput"></label>
+              <label>Slogan<input id="taglineInput"></label>
+              <label>Título de boas-vindas<input id="welcomeTitleInput"></label>
+              <label class="full-row">Mensagem de boas-vindas<textarea id="welcomeTextInput"></textarea></label>
+              <label class="full-row">Aviso em destaque<textarea id="noticeInput" placeholder="Deixe em branco para ocultar"></textarea></label>
+            </div>
+          </div>
+        </section>
+
+        <section class="admin-section" id="section-hosting">
+          <div class="section-introduction"><div><span class="eyebrow">Contato</span><h2>Hospedagem e atendimento</h2></div></div>
+          <div class="form-card"><div class="form-grid two-columns">
+            <label>Telefone exibido<input id="phoneDisplayInput"></label>
+            <label>WhatsApp com DDI<input id="phoneWhatsAppInput"></label>
+            <label>Instagram<input id="instagramInput"></label>
+            <label>E-mail<input id="emailInput" type="email"></label>
+            <label class="full-row">Endereço<input id="addressInput"></label>
+            <label>Check-in<input id="checkinInput"></label>
+            <label>Check-out<input id="checkoutInput"></label>
+            <label>Recepção<input id="receptionInput"></label>
+          </div></div>
+        </section>
+
+        <section class="admin-section" id="section-wifi">
+          <div class="section-introduction"><div><span class="eyebrow">Conectividade</span><h2>Wi-Fi</h2></div></div>
+          <div class="form-card"><div class="form-grid two-columns"><label>Nome da rede<input id="wifiNameInput"></label><label>Senha<input id="wifiPasswordInput"></label></div></div>
+        </section>
+
+        <section class="admin-section" id="section-breakfast">
+          <div class="section-introduction"><div><span class="eyebrow">Horários</span><h2>Café da manhã</h2></div></div>
+          <div class="form-card"><div class="form-grid two-columns"><label>Segunda a sexta<input id="breakfastWeekInput"></label><label>Finais de semana e feriados<input id="breakfastWeekendInput"></label></div></div>
+        </section>
+
+        <section class="admin-section" id="section-services">
+          <div class="section-introduction with-action"><div><span class="eyebrow">Atendimento</span><h2>Serviços</h2></div><button class="primary-button" id="addServiceButton" type="button">Adicionar serviço</button></div>
+          <div class="sortable-list" id="servicesEditor"></div>
+        </section>
+
+        <section class="admin-section" id="section-rooms">
+          <div class="section-introduction with-action"><div><span class="eyebrow">Acomodações</span><h2>Quartos</h2></div><button class="primary-button" id="addRoomButton" type="button">Adicionar quarto</button></div>
+          <div class="sortable-list" id="roomsEditor"></div>
+        </section>
+
+        <section class="admin-section" id="section-rules">
+          <div class="section-introduction with-action"><div><span class="eyebrow">Orientações</span><h2>Regras</h2></div><button class="primary-button" id="addRuleButton" type="button">Adicionar regra</button></div>
+          <div class="sortable-list" id="rulesEditor"></div>
+        </section>
+
+        <section class="admin-section" id="section-gallery">
+          <div class="section-introduction"><div><span class="eyebrow">Imagens</span><h2>Galeria</h2></div></div>
+          <div class="upload-card"><div class="upload-area" id="uploadArea"><span>▧</span><strong>Arraste fotos para esta área</strong><p>JPG, PNG ou WebP</p><button class="secondary-button" id="selectImagesButton" type="button">Selecionar imagens</button><input id="galleryInput" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden></div></div>
+          <div class="gallery-editor" id="galleryEditor"></div>
+        </section>
+
+        <section class="admin-section" id="section-academy">
+          <div class="section-introduction"><div><span class="eyebrow">Parceria</span><h2>Academia</h2></div></div>
+          <div class="form-card"><div class="form-grid two-columns"><label>Nome da academia<input id="academyNameInput"></label><label>Valor do passe<input id="academyPriceInput"></label><label class="full-row">Descrição<textarea id="academyTextInput"></textarea></label></div></div>
+        </section>
+
+        <section class="admin-section" id="section-nearby">
+          <div class="section-introduction with-action"><div><span class="eyebrow">Guia local</span><h2>Proximidades</h2></div><button class="primary-button" id="addNearbyButton" type="button">Adicionar categoria</button></div>
+          <div class="sortable-list" id="nearbyEditor"></div>
+        </section>
+
+        <section class="admin-section" id="section-faq">
+          <div class="section-introduction with-action"><div><span class="eyebrow">Dúvidas</span><h2>Perguntas frequentes</h2></div><button class="primary-button" id="addFaqButton" type="button">Adicionar pergunta</button></div>
+          <div class="sortable-list" id="faqEditor"></div>
+        </section>
+
+        <section class="admin-section" id="section-settings">
+          <div class="section-introduction"><div><span class="eyebrow">Segurança</span><h2>Configurações</h2></div></div>
+          <div class="settings-grid">
+            <div class="form-card"><div class="card-heading"><h3>Alterar senha</h3></div><label>Nova senha<input id="newPasswordInput" type="password"></label><label>Confirmar senha<input id="confirmPasswordInput" type="password"></label><button class="primary-button" id="changePasswordButton" type="button">Alterar senha</button></div>
+            <div class="form-card danger-card"><div class="card-heading"><h3>Restaurar sistema</h3></div><p>Apaga as alterações feitas neste navegador e restaura os dados padrão.</p><button class="danger-button" id="resetDataButton" type="button">Restaurar dados padrão</button></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-overlay" id="confirmationModal" hidden><div class="modal-card"><div class="modal-icon">!</div><h2 id="modalTitle">Confirmar ação</h2><p id="modalMessage"></p><div class="modal-actions"><button class="secondary-button" id="modalCancelButton" type="button">Cancelar</button><button class="danger-button" id="modalConfirmButton" type="button">Confirmar</button></div></div></div>
+  <div class="admin-toast" id="adminToast"></div>
+
+  <script src="../js/storage.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
