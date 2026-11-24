@@ -1,4 +1,4 @@
-const CACHE_NAME = "seu-hotel-concierge-v2-interativo";
+const CACHE_NAME = "seu-hotel-concierge-v2-visual-2026";
 const APP_SHELL = [
   "./",
   "./index.html",
